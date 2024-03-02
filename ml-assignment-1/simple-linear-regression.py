@@ -1,46 +1,62 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn import metrics
-#Loading data
+
 data = pd.read_csv('assignment1dataset.csv')
-print(data.describe())
-print(data.head())
+X1=np.array(data['Hours Studied'])
+X2=data['Previous Scores']
+X3=data['Sleep Hours']
+X4=data['Sample Question Papers Practiced']
+Y=np.array(data['Performance Index'])
 
-X=data.drop('Performance Index', axis=1)
-Y=data['Performance Index']
-print(X.shape)
-print(Y.shape)
+def calculate_error(Y,prediction):
+    error = 0
+    n = len(Y)
+    for i in range(n):
+        error += (Y[i] - prediction[i]) ** 2
+    return error / n
 
-#Plotting
-#plt.scatter(X, Y)
-#plt.xlabel('SAT', fontsize = 20)
-#plt.ylabel('GPA', fontsize = 20)
-#plt.show()
+class linear_regressor:
+    def __init__(self):
+        self.theta_0 = 0 #slope
+        self.theta_1 = 0 #intercept
 
-L = 0.0000001  # The learning Rate
-epochs = 100  # The number of iterations to perform gradient descent
-m=0
-c=0
-n = len(X) # Number of elements in X
-for i in range(epochs):
-    Y_pred = m*X + c  # The current predicted value of Y
-    D_m = (-2/n) * sum((Y - Y_pred)* X)  # Derivative wrt m
-    D_c = (-2/n) * sum(Y - Y_pred)  # Derivative wrt c
-    m = m - L * D_m  # Update m
-    c = c - L * D_c  # Update c
-prediction = m*X + c
+    def fit(self, X,Y, alpha=0.000002, n=300):
+        error_sum = 0
+        error_x_sum = 0
+        for i in range(n):
+            for i in range(len(Y)):
+                error = (Y[i] - X[i] * self.theta_1 - self.theta_0) 
+                error_sum += error 
+                error_x_sum += error * X[i]
+            derivative_theta_0 = -2 / n * error_sum
+            derivative_theta_1 = -2 / n * error_x_sum 
+            temp_0 = self.theta_0 - alpha * derivative_theta_0
+            temp_1 = self.theta_1 - alpha * derivative_theta_1
+            self.theta_0 = temp_0
+            self.theta_1 = temp_1
+
+    def predict(self, X):
+        return self.theta_1 * X + self.theta_0
 
 
-plt.scatter(X, Y)
-plt.xlabel('SAT', fontsize = 20)
-plt.ylabel('GPA', fontsize = 20)
-plt.plot(X, prediction, color='red', linewidth = 3)
-plt.show()
+#Model 1 on X1
+model1 = linear_regressor()
+model1.fit(X1,Y)
+prediction = model1.predict(X1)
+print("Model 1 Error:" + str(calculate_error(Y, prediction)))
+#Model 2 on X2
+model2 = linear_regressor()
+model2.fit(X2,Y)
+prediction = model2.predict(X2)
+print("Model 2 Error:" + str(calculate_error(Y, prediction)))
+#Model 3 on X3
+model3 = linear_regressor()
+model3.fit(X3,Y)
+prediction = model3.predict(X3)
+print("Model 3 Error:" + str(calculate_error(Y, prediction)))
 
-print('Mean Square Error', metrics.mean_squared_error(Y, prediction))
-
-#Predict your GPA based on your SAT Score
-STA_Score=int(input('Enter your SAT score: '))
-y_test=m*STA_Score + c
-print('Your predicted GPA is ' + str(float(y_test)))
+#Model 4 on X4
+model4 = linear_regressor()
+model4.fit(X4,Y)
+prediction = model4.predict(X4)
+print("Model 4 Error:" + str(calculate_error(Y, prediction)))
