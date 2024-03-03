@@ -21,8 +21,8 @@ def calculate_error(Y,prediction):
 
 class linear_regressor:
     def __init__(self):
-        self.theta_0 = 1 #slope
-        self.theta_1 = 1 #intercept
+        self.theta_0 = 1 #intercept
+        self.theta_1 = 1 #slope
 
     def fit(self, X,Y, alpha=0.0000002, n=300):
         error_sum = 0
