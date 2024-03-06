@@ -9,7 +9,8 @@ X2=data['Previous Scores']
 X3=data['Sleep Hours']
 X4=data['Sample Question Papers Practiced']
 #Compound features
-X5= X2 + X1 + X4
+X5= X2 + X1 + X4 #Sum of all features
+
 Y=np.array(data['Performance Index'])
 
 def calculate_error(Y,prediction):
@@ -43,38 +44,38 @@ class linear_regressor:
         return self.theta_1 * X + self.theta_0
 
 
-#Model 1 on X1
-model1 = linear_regressor()
-model1.fit(X1,Y)
-prediction1 = model1.predict(X1)
-print("Model 1 Error:" + str(calculate_error(Y, prediction1)))
-plt.scatter(X1, Y)
-plt.xlabel('X', fontsize = 20)
-plt.ylabel('Y', fontsize = 20)
-plt.plot(X1, prediction1, color='red', linewidth = 3)
-plt.show()
+# #Model 1 on X1
+# model1 = linear_regressor()
+# model1.fit(X1,Y)
+# prediction1 = model1.predict(X1)
+# print("Model 1 Error:" + str(calculate_error(Y, prediction1)))
+# plt.scatter(X1, Y)
+# plt.xlabel('X', fontsize = 20)
+# plt.ylabel('Y', fontsize = 20)
+# plt.plot(X1, prediction1, color='red', linewidth = 3)
+# plt.show()
 
-#Model 2 on X2
-model2 = linear_regressor()
-model2.fit(X2,Y)
-prediction2 = model2.predict(X2)
-print("Model 2 Error:" + str(calculate_error(Y, prediction2)))
-plt.scatter(X2, Y)
-plt.xlabel('X', fontsize = 20)
-plt.ylabel('Y', fontsize = 20)
-plt.plot(X2, prediction2, color='red', linewidth = 3)
-plt.show()
+# #Model 2 on X2
+# model2 = linear_regressor()
+# model2.fit(X2,Y)
+# prediction2 = model2.predict(X2)
+# print("Model 2 Error:" + str(calculate_error(Y, prediction2)))
+# plt.scatter(X2, Y)
+# plt.xlabel('X', fontsize = 20)
+# plt.ylabel('Y', fontsize = 20)
+# plt.plot(X2, prediction2, color='red', linewidth = 3)
+# plt.show()
 
-#Model 3 on X3
-model3 = linear_regressor()
-model3.fit(X3,Y)
-prediction3 = model3.predict(X3)
-print("Model 3 Error:" + str(calculate_error(Y, prediction3)))
-plt.scatter(X3, Y)
-plt.xlabel('X', fontsize = 20)
-plt.ylabel('Y', fontsize = 20)
-plt.plot(X3, prediction3, color='red', linewidth = 3)
-plt.show()
+# #Model 3 on X3
+# model3 = linear_regressor()
+# model3.fit(X3,Y)
+# prediction3 = model3.predict(X3)
+# print("Model 3 Error:" + str(calculate_error(Y, prediction3)))
+# plt.scatter(X3, Y)
+# plt.xlabel('X', fontsize = 20)
+# plt.ylabel('Y', fontsize = 20)
+# plt.plot(X3, prediction3, color='red', linewidth = 3)
+# plt.show()
 #Model 4 on X4
 model4 = linear_regressor()
 model4.fit(X4,Y)
