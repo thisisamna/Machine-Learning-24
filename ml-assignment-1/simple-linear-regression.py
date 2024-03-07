@@ -29,10 +29,10 @@ class linear_regressor:
         error_sum = 0
         error_x_sum = 0
         for i in range(n):
-            for i in range(len(Y)):
-                error = (Y[i] - X[i] * self.theta_1 - self.theta_0) 
+            for j in range(len(Y)):
+                error = (Y[j] - X[j] * self.theta_1 - self.theta_0) 
                 error_sum += error 
-                error_x_sum += error * X[i]
+                error_x_sum += error * X[j]
             derivative_theta_0 = -2 / n * error_sum
             derivative_theta_1 = -2 / n * error_x_sum 
             temp_0 = self.theta_0 - alpha * derivative_theta_0
@@ -44,16 +44,16 @@ class linear_regressor:
         return self.theta_1 * X + self.theta_0
 
 
-# #Model 1 on X1
-# model1 = linear_regressor()
-# model1.fit(X1,Y)
-# prediction1 = model1.predict(X1)
-# print("Model 1 Error:" + str(calculate_error(Y, prediction1)))
-# plt.scatter(X1, Y)
-# plt.xlabel('X', fontsize = 20)
-# plt.ylabel('Y', fontsize = 20)
-# plt.plot(X1, prediction1, color='red', linewidth = 3)
-# plt.show()
+#Model 1 on X1
+model1 = linear_regressor()
+model1.fit(X1,Y)
+prediction1 = model1.predict(X1)
+print("Model 1 Error:" + str(calculate_error(Y, prediction1)))
+plt.scatter(X1, Y)
+plt.xlabel('X', fontsize = 20)
+plt.ylabel('Y', fontsize = 20)
+plt.plot(X1, prediction1, color='red', linewidth = 3)
+plt.show()
 
 # #Model 2 on X2
 # model2 = linear_regressor()
