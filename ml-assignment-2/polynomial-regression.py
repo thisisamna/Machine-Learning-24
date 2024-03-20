@@ -21,23 +21,30 @@ le.fit(student_data['Extracurricular Activities'])
 student_data['Extracurricular Activities']= le.transform(student_data['Extracurricular Activities'])
 #Feature Selection
 #Get the correlation between the features
-corr = student_data.corr()
-#Top 50% Correlation training features with the Value
-top_feature = corr.index[abs(corr['Value'])>0.5]
-#Correlation plot
-top_corr = student_data[top_feature].corr()
-top_feature = top_feature.delete(-1)
-X = X[top_feature]
+# corr = student_data.corr()
+# #Top 50% Correlation training features with the Value
+# top_feature = corr.index[abs(corr['Value'])>0.5]
+# #Correlation plot
+# top_corr = student_data[top_feature].corr()
+# top_feature = top_feature.delete(-1)
+# X = X[top_feature]
 
 #Split the data to training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.30,shuffle=True,random_state=10)
 
 #X_test, X_val, y_test, y_val = train_test_split(X_test, y_test, test_size = 0.50,shuffle=True)
-    
-poly_features = PolynomialFeatures(degree=3)
 
+def PolynomialFeatures(X, degree):
+    numOfRows =X.shape[0] 
+    numOfCols= X.shape[1]
+    for i in range(degree):
+        for feature1 in range(numOfCols):
+            for feature2 in range(numOfCols):
+                newFeature = X.columns[feature1].strip()+"*"+X.columns[feature2].strip()
+                X.insert(X.shape[1],newFeature,0)
+                X[newFeature]=X.iloc[:,feature1]*X.iloc[:,feature2]
 # transforms the existing features to higher degree features.
-X_train_poly = poly_features.fit_transform(X_train)
+X_train_poly = PolynomialFeatures(X_train, degree=2)
 
 # fit the transformed features to Linear Regression
 poly_model = linear_model.LinearRegression()
