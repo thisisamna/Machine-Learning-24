@@ -20,7 +20,7 @@ data.info()
 X=data.drop('Performance Index', axis=1,)#Features
 Y=data['Performance Index'] #Label
 #Split the data to training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.30,shuffle=True,random_state=10)
+X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.20,shuffle=True,random_state=10)
 
 
 
